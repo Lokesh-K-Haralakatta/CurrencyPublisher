@@ -2,6 +2,7 @@ package com.lokesh.publisher;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 import java.util.logging.Logger;
 
@@ -18,7 +19,7 @@ public class CurrencyPublisherApplication implements CommandLineRunner {
 	private static ApplicationContext appCxt = null;
 	
 	@Autowired
-	private CurrencyPublisherThreadsPool publisherThreads;
+	private Environment env;
 	
 	public static void main(String[] args) {
 		Log.info("Starting CurrencyPublisherApplication");
@@ -32,6 +33,9 @@ public class CurrencyPublisherApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		Log.info("Running CommandLineRunner run method");
+		CurrencyPublisherThreadsPool publisherThreads 
+		      = new CurrencyPublisherThreadsPool(env.getProperty("currency.sdate"));
+		
 		publisherThreads.executeCurrencyPulisherThreads();
 		Log.info("Return from CommandLineRunner run method");
 	}
@@ -43,5 +47,5 @@ public class CurrencyPublisherApplication implements CommandLineRunner {
 	@Bean
     public ExitCodeGenerator exitCodeGenerator() {
 		return () -> 42;
-    }
+    }	
 }

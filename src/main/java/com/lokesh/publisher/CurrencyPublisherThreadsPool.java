@@ -6,12 +6,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-@Component
 public class CurrencyPublisherThreadsPool {
 	private static Logger Log = Logger.getLogger(CurrencyPublisherThreadsPool.class.getName());
+	
 	// Enum to represent different currencies
 	private enum Currency {
 		USD,EUR,INR
@@ -26,14 +23,11 @@ public class CurrencyPublisherThreadsPool {
     // Currency publisher threads list
     private List<CurrencyPublisherThread> threadsList = new ArrayList<>();
     
-    @Value("${currency.start.date:2020-12-01}")
-    private String startDate;
-	
-	public CurrencyPublisherThreadsPool() {
+	public CurrencyPublisherThreadsPool(String sDate) {
 		Log.info("Instantiating Currency Publisher Threads...");
 		//Instantiate separate publisher threads
 		for(Currency cur : Currency.values()) {
-			threadsList.add(new CurrencyPublisherThread(cur.name(),startDate));
+			threadsList.add(new CurrencyPublisherThread(cur.name(), sDate));
 			Log.info("Created publisher thread for currency " + cur.name());
 		}
 		Log.info("Currency Publisher Threads instantiation done...");

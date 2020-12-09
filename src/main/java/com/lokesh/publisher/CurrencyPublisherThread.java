@@ -5,14 +5,16 @@ import java.util.logging.Logger;
 
 public class CurrencyPublisherThread implements Runnable {
 	private static Logger Log = Logger.getLogger(CurrencyPublisherThread.class.getName());
-		
+	
 	private LocalDate latestDate = LocalDate.now();
 	private LocalDate nextDate;
 	private String currency;
+	private String startDate;
 	
-	public CurrencyPublisherThread(String cur, String startDate) {
+	public CurrencyPublisherThread(String cur, String sDate) {
 		this.currency = cur;
 		try {
+			startDate = sDate;
 			Log.info("Injected start date: " + startDate);
 			this.nextDate = LocalDate.parse(startDate);
 		}
