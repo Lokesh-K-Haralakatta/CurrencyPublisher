@@ -3,6 +3,11 @@ package com.lokesh.publisher;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
+import com.lokesh.pojos.Currency;
+import com.lokesh.service.CurrencyRetrieveService;
+
 public class CurrencyPublisherThread implements Runnable {
 	private static Logger Log = Logger.getLogger(CurrencyPublisherThread.class.getName());
 	
@@ -11,6 +16,8 @@ public class CurrencyPublisherThread implements Runnable {
 	private String currency;
 	private String startDate;
 	
+	private CurrencyRetrieveService retrieveService;
+		
 	public CurrencyPublisherThread(String cur, String sDate) {
 		this.currency = cur;
 		try {
@@ -25,6 +32,9 @@ public class CurrencyPublisherThread implements Runnable {
 		
 		Log.info("Next Date: " + nextDate.toString());
 		this.latestDate = latestDate.plusDays(1);
+		
+		retrieveService = new CurrencyRetrieveService();
+		Log.info("Instantiated CurrencyRetrieveService for CurrencyPublisherThread with base: " + getCurrencyThreadName());
 	}
 	
 	@Override
@@ -35,10 +45,15 @@ public class CurrencyPublisherThread implements Runnable {
 			//Add here logic to get currency dates 
 			//from GET https://api.exchangeratesapi.io/2010-01-12 HTTP/1.1
 			try {
+				Currency cRates = retrieveService.getCurrencyRatesForBase(nextDate.toString(), currency);
+				Log.info("Retrieved Base Currency: " + cRates.getBase());
+				Log.info("Currency rates retrieved for date: " + cRates.getDate());
+				//Add logic to publish retrieved currency rates to respective Kafka topic
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Log.severe("Exception caught while retrieving currency rates for base: " +
+							currency + " and date: " + startDate);
+				Log.severe(ExceptionUtils.getStackTrace(e));
 			}
 			
 			nextDate = nextDate.plusDays(1);
