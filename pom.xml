@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lokesh.samples</groupId>
-	<artifactId>CurrencyPublisher</artifactId>
+	<artifactId>CurrencyRatesPublisher</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CurrencyPublisher</name>
-	<description>Day wise currency publisher Kafka client</description>
+	<name>CurrencyRatesPublisher</name>
+	<description>Day wise currency rates publisher Kafka client</description>
 
 	<properties>
 		<java.version>1.8</java.version>
