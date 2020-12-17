@@ -1,4 +1,4 @@
-# CurrencyPublisher
+# CurrencyRatesPublisher
 Standalone Springboot Java application to retrieve and publish various currency rates to Kafka Topics.
 
 The main goal of this application module is to retrieve various currency values starting from given date to latest date
@@ -6,8 +6,10 @@ and keep publishing to configured Kafka Brokers for every 1 Second on various Ka
 
 The various currnecy values are retrieved from public api available at [Foreign exchange rates API](http://exchangeratesapi.io/)
 
-# Prerquisites
+# Prerequisites
 - Java 8
+- Springboot
+- Spring Kafka
 - Apache Maven
 - Apache Kafka
 
