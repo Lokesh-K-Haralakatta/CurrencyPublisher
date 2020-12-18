@@ -1,4 +1,4 @@
-package com.lokesh.pojos;
+package com.crp.pojos;
 
 import java.util.HashMap;
 import java.util.Map;

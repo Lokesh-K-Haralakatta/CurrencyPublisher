@@ -1,12 +1,13 @@
-package com.lokesh.service;
+package com.crp.test.service;
 
 import org.junit.jupiter.api.Test;
 
-import com.lokesh.pojos.Currency;
+import com.crp.pojos.Currency;
+import com.crp.service.CurrencyRatesRetrieveService;
 
-class CurrencyRetrieveServiceTests {
+class CurrencyRatesRetrieveServiceTests {
 
-	private CurrencyRetrieveService currencyService = new CurrencyRetrieveService();
+	private CurrencyRatesRetrieveService currencyService = new CurrencyRatesRetrieveService();
 	
 	@Test
 	void testGetLatestCurrencyRates() {

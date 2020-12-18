@@ -1,24 +1,24 @@
-package com.lokesh.publisher;
+package com.crp.components;
 
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import com.lokesh.pojos.Currency;
-import com.lokesh.service.CurrencyRetrieveService;
+import com.crp.pojos.Currency;
+import com.crp.service.CurrencyRatesRetrieveService;
 
-public class CurrencyPublisherThread implements Runnable {
-	private static Logger Log = Logger.getLogger(CurrencyPublisherThread.class.getName());
+public class CurrencyRatesPublisherThread implements Runnable {
+	private static Logger Log = Logger.getLogger(CurrencyRatesPublisherThread.class.getName());
 	
 	private LocalDate latestDate = LocalDate.now();
 	private LocalDate nextDate;
 	private String currency;
 	private String startDate;
 	
-	private CurrencyRetrieveService retrieveService;
+	private CurrencyRatesRetrieveService retrieveService;
 		
-	public CurrencyPublisherThread(String cur, String sDate) {
+	public CurrencyRatesPublisherThread(String cur, String sDate) {
 		this.currency = cur;
 		try {
 			startDate = sDate;
@@ -33,7 +33,7 @@ public class CurrencyPublisherThread implements Runnable {
 		Log.info("Next Date: " + nextDate.toString());
 		this.latestDate = latestDate.plusDays(1);
 		
-		retrieveService = new CurrencyRetrieveService();
+		retrieveService = new CurrencyRatesRetrieveService();
 		Log.info("Instantiated CurrencyRetrieveService for CurrencyPublisherThread with base: " + getCurrencyThreadName());
 	}
 	

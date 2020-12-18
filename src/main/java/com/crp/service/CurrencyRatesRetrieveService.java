@@ -1,4 +1,4 @@
-package com.lokesh.service;
+package com.crp.service;
 
 import java.util.logging.Logger;
 
@@ -6,11 +6,11 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.lokesh.pojos.Currency;
+import com.crp.pojos.Currency;
 
 @Component
-public class CurrencyRetrieveService {
-	private static Logger Log = Logger.getLogger(CurrencyRetrieveService.class.getName());
+public class CurrencyRatesRetrieveService {
+	private static Logger Log = Logger.getLogger(CurrencyRatesRetrieveService.class.getName());
 	private static final String FE_API_URL = "https://api.exchangeratesapi.io/";
 	private static RestTemplate restTemplate = new RestTemplate();
 	

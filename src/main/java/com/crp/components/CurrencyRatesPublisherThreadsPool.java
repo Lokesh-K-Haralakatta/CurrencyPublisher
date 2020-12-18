@@ -1,4 +1,4 @@
-package com.lokesh.publisher;
+package com.crp.components;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class CurrencyPublisherThreadsPool {
-	private static Logger Log = Logger.getLogger(CurrencyPublisherThreadsPool.class.getName());
+public class CurrencyRatesPublisherThreadsPool {
+	private static Logger Log = Logger.getLogger(CurrencyRatesPublisherThreadsPool.class.getName());
 	
 	// Enum to represent different currencies
 	private enum Currency {
@@ -21,13 +21,13 @@ public class CurrencyPublisherThreadsPool {
     private ExecutorService threadsPool = Executors.newFixedThreadPool(MAX_T);
     
     // Currency publisher threads list
-    private List<CurrencyPublisherThread> threadsList = new ArrayList<>();
+    private List<CurrencyRatesPublisherThread> threadsList = new ArrayList<>();
     
-	public CurrencyPublisherThreadsPool(String sDate) {
+	public CurrencyRatesPublisherThreadsPool(String sDate) {
 		Log.info("Instantiating Currency Publisher Threads...");
 		//Instantiate separate publisher threads
 		for(Currency cur : Currency.values()) {
-			threadsList.add(new CurrencyPublisherThread(cur.name(), sDate));
+			threadsList.add(new CurrencyRatesPublisherThread(cur.name(), sDate));
 			Log.info("Created publisher thread for currency " + cur.name());
 		}
 		Log.info("Currency Publisher Threads instantiation done...");
@@ -35,7 +35,7 @@ public class CurrencyPublisherThreadsPool {
 	
 	public void executeCurrencyPulisherThreads() {
 		Log.info("Adding CurrencyPublisher Threads to threads pool for execution");
-		for(CurrencyPublisherThread task: threadsList) {
+		for(CurrencyRatesPublisherThread task: threadsList) {
 			threadsPool.execute(task);
 			Log.info("Currency Publisher Thread - " + task.getCurrencyThreadName() 
 			      + " added to threads pool for execution...");
