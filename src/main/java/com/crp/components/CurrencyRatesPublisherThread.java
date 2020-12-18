@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
-import com.crp.pojos.Currency;
+import com.crp.pojos.CurrencyModel;
 import com.crp.service.CurrencyRatesRetrieveService;
 
 public class CurrencyRatesPublisherThread implements Runnable {
@@ -45,7 +45,7 @@ public class CurrencyRatesPublisherThread implements Runnable {
 			//Add here logic to get currency dates 
 			//from GET https://api.exchangeratesapi.io/2010-01-12 HTTP/1.1
 			try {
-				Currency cRates = retrieveService.getCurrencyRatesForBase(nextDate.toString(), currency);
+				CurrencyModel cRates = retrieveService.getCurrencyRatesForBase(nextDate.toString(), currency);
 				Log.info("Retrieved Base Currency: " + cRates.getBase());
 				Log.info("Currency rates retrieved for date: " + cRates.getDate());
 				//Add logic to publish retrieved currency rates to respective Kafka topic

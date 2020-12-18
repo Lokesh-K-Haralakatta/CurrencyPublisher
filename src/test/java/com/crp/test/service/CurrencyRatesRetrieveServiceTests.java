@@ -2,7 +2,7 @@ package com.crp.test.service;
 
 import org.junit.jupiter.api.Test;
 
-import com.crp.pojos.Currency;
+import com.crp.pojos.CurrencyModel;
 import com.crp.service.CurrencyRatesRetrieveService;
 
 class CurrencyRatesRetrieveServiceTests {
@@ -11,7 +11,7 @@ class CurrencyRatesRetrieveServiceTests {
 	
 	@Test
 	void testGetLatestCurrencyRates() {
-		Currency latestRates = currencyService.getLatestCurrencyRates();
+		CurrencyModel latestRates = currencyService.getLatestCurrencyRates();
 		
 		/*System.out.println("Base Currency: " + latestRates.getBase());
 		System.out.println("Date: " + latestRates.getDate());
@@ -33,7 +33,7 @@ class CurrencyRatesRetrieveServiceTests {
 	@Test
 	void testGetCurrencyRatesForDate() {
 		String date = "2019-10-30";
-		Currency currencyRates = currencyService.getCurrencyRatesForDate(date);
+		CurrencyModel currencyRates = currencyService.getCurrencyRatesForDate(date);
 		
 		assert(currencyRates.getBase().equals("EUR"));
 		assert(currencyRates.getDate().equals(date));
@@ -49,7 +49,7 @@ class CurrencyRatesRetrieveServiceTests {
 		String date = "2019-10-30";
 		String base = "INR";
 		
-		Currency currencyRates = currencyService.getCurrencyRatesForBase(date, base);
+		CurrencyModel currencyRates = currencyService.getCurrencyRatesForBase(date, base);
 		
 		assert(currencyRates.getBase().equals(base));
 		assert(currencyRates.getDate().equals(date));

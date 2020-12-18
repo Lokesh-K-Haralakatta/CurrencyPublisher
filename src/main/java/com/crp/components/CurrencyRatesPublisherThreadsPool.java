@@ -6,19 +6,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
+import com.crp.configuration.CurrencyConfig;
+import com.crp.configuration.CurrencyConfig.Currency;
+
 public class CurrencyRatesPublisherThreadsPool {
 	private static Logger Log = Logger.getLogger(CurrencyRatesPublisherThreadsPool.class.getName());
 	
-	// Enum to represent different currencies
-	private enum Currency {
-		USD,EUR,INR
-	}
-	
-	// Maximum number of threads in thread pool 
-    private static final int MAX_T = Currency.values().length;
-    
-    // Threads Pool Reference
-    private ExecutorService threadsPool = Executors.newFixedThreadPool(MAX_T);
+	// Threads Pool Reference
+    private ExecutorService threadsPool = Executors.newFixedThreadPool(CurrencyConfig.getCurrencyCount());
     
     // Currency publisher threads list
     private List<CurrencyRatesPublisherThread> threadsList = new ArrayList<>();
@@ -26,7 +21,7 @@ public class CurrencyRatesPublisherThreadsPool {
 	public CurrencyRatesPublisherThreadsPool(String sDate) {
 		Log.info("Instantiating Currency Publisher Threads...");
 		//Instantiate separate publisher threads
-		for(Currency cur : Currency.values()) {
+		for(Currency cur : CurrencyConfig.getCurrencyTypes()) {
 			threadsList.add(new CurrencyRatesPublisherThread(cur.name(), sDate));
 			Log.info("Created publisher thread for currency " + cur.name());
 		}
