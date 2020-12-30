@@ -1,4 +1,4 @@
-package com.crp.components;
+package com.crp.threads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-import com.crp.configuration.CurrencyConfig;
-import com.crp.configuration.CurrencyConfig.Currency;
+import com.crp.configuration.CurrencyNamesConfig;
 
 public class CurrencyRatesPublisherThreadsPool {
 	private static Logger Log = Logger.getLogger(CurrencyRatesPublisherThreadsPool.class.getName());
 	
 	// Threads Pool Reference
-    private ExecutorService threadsPool = Executors.newFixedThreadPool(CurrencyConfig.getCurrencyCount());
+    private ExecutorService threadsPool = Executors.newFixedThreadPool(CurrencyNamesConfig.getCurrencyCount());
     
     // Currency publisher threads list
     private List<CurrencyRatesPublisherThread> threadsList = new ArrayList<>();
@@ -21,9 +20,9 @@ public class CurrencyRatesPublisherThreadsPool {
 	public CurrencyRatesPublisherThreadsPool(String sDate) {
 		Log.info("Instantiating Currency Publisher Threads...");
 		//Instantiate separate publisher threads
-		for(Currency cur : CurrencyConfig.getCurrencyTypes()) {
-			threadsList.add(new CurrencyRatesPublisherThread(cur.name(), sDate));
-			Log.info("Created publisher thread for currency " + cur.name());
+		for(String curName : CurrencyNamesConfig.getCurrencyNames()) {
+			threadsList.add(new CurrencyRatesPublisherThread(curName, sDate));
+			Log.info("Created publisher thread for currency " + curName);
 		}
 		Log.info("Currency Publisher Threads instantiation done...");
 	}

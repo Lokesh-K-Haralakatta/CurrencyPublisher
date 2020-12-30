@@ -3,19 +3,19 @@ package com.crp.service;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.crp.pojos.CurrencyModel;
 
-@Component
+@Service
 public class CurrencyRatesRetrieveService {
 	private static Logger Log = Logger.getLogger(CurrencyRatesRetrieveService.class.getName());
 	private static final String FE_API_URL = "https://api.exchangeratesapi.io/";
 	private static RestTemplate restTemplate = new RestTemplate();
 	
 	//Retrieves and returns the currency rates for latest date with EURO as base 
-	public CurrencyModel getLatestCurrencyRates() {
+	public synchronized CurrencyModel getLatestCurrencyRates() {
 		String latestCurURL = FE_API_URL + "latest";
 		
 		Log.info("Getting latest currency rates from " + latestCurURL);
@@ -34,7 +34,7 @@ public class CurrencyRatesRetrieveService {
 	
 	//Retrieves and returns the currency rates for given date with EURO as base
 	//Given date string should be in the format YYYY-MM-DD
-	public CurrencyModel getCurrencyRatesForDate(final String date) {
+	public synchronized CurrencyModel getCurrencyRatesForDate(final String date) {
 		String curURLWithDate = FE_API_URL + date;
 		
 		Log.info("Getting currency rates from " + curURLWithDate);
@@ -54,7 +54,7 @@ public class CurrencyRatesRetrieveService {
 	//Retrieves and returns the currency rates for given base
 	//Given date string should be in the format YYYY-MM-DD
 	//Base string should be one from list supported by api.exchangeratesapi.io
-	public CurrencyModel getCurrencyRatesForBase(final String date, final String base) {
+	public synchronized CurrencyModel getCurrencyRatesForBase(final String date, final String base) {
 		String curURL = FE_API_URL + date + "?base=" + base;
 		
 		Log.info("Getting currency rates from " + curURL);
@@ -62,8 +62,8 @@ public class CurrencyRatesRetrieveService {
 		CurrencyModel response = null;
 		try {
 			response = restTemplate.getForObject(curURL, CurrencyModel.class);
-			Log.info("Currency rates retrieval for base " + base + " with date " + 
-						date + " successful");
+			Log.info("Currency rates retrieval for base " + response.getBase() + " with date " + 
+						response.getDate() + " successful");
 		}
 		catch(Exception e) {
 			Log.severe("Exception caught while retrieving currency rates for base " + base);

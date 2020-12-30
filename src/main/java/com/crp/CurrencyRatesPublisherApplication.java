@@ -1,8 +1,10 @@
-package com.crp.components;
+package com.crp;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+
+import com.crp.threads.CurrencyRatesPublisherThreadsPool;
 
 import java.util.logging.Logger;
 
@@ -16,6 +18,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class CurrencyRatesPublisherApplication implements CommandLineRunner {
 	private static Logger Log = Logger.getLogger(CurrencyRatesPublisherApplication.class.getName());
+	
 	private static ApplicationContext appCxt = null;
 	
 	@Autowired
