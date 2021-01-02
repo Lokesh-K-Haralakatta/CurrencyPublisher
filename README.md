@@ -18,4 +18,4 @@ CurrencyPublisher application is designed to have a threads pool containing sepa
 each of the currency for every 1 second from [Foreign exchange rates API](http://exchangeratesapi.io/) and publish to respective
 Kafka topic for further processing from Kafka Event Streaming Module. Below diagram represents pictorial representation of the flow:
 
-![Currency-Publisher-Flow](Currency-publisher-flow.pdf)
+![Currency-Publisher-Flow](https://github.com/Lokesh-K-Haralakatta/CurrencyRatesPublisher/blob/develop/currency-rates-publisher-flow.png)
